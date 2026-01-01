@@ -1,0 +1,31 @@
+<svg viewBox="0 0 280 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Leapa Primary Logo - Concept B (Blue) - No Tagline -->
+    <defs>
+        <linearGradient id="leapaBlueGradient" x1="0" y1="18" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#1E40AF"/>
+            <stop offset="0.5" stop-color="#2563EB"/>
+            <stop offset="1" stop-color="#3B82F6"/>
+        </linearGradient>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Sora:wght@700&amp;display=swap');
+        </style>
+    </defs>
+    
+    <!-- Icon Mark - Stylized L with Motion Trail -->
+    <g>
+        <!-- Stylized L -->
+        <path d="M12 58V24C12 18 16 14 22 14H32" stroke="url(#leapaBlueGradient)" stroke-width="7" stroke-linecap="round"/>
+        <path d="M12 58H52" stroke="url(#leapaBlueGradient)" stroke-width="7" stroke-linecap="round"/>
+        <!-- Motion trail arrow -->
+        <path d="M34 44L52 22L64 36" stroke="#FFB627" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="64" cy="36" r="5" fill="#FFB627"/>
+        <!-- Motion echo dots -->
+        <circle cx="40" cy="38" r="2.5" fill="#FFB627" opacity="0.4"/>
+        <circle cx="46" cy="30" r="2" fill="#FFB627" opacity="0.3"/>
+    </g>
+    
+    <!-- Wordmark -->
+    <text x="84" y="52" font-family="Sora, sans-serif" font-size="38" font-weight="700">
+        <tspan fill="#2563EB">L</tspan><tspan fill="#0F172A">eapa</tspan>
+    </text>
+</svg>

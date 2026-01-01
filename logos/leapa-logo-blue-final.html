@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leapa Logo - Concept B (Blue)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --leapa-primary: #2563EB;
+            --leapa-secondary: #1E40AF;
+            --leapa-light-blue: #3B82F6;
+            --leapa-accent: #FFB627;
+            --leapa-dark: #0F172A;
+            --leapa-light: #F8FAFC;
+            --gradient-primary: linear-gradient(135deg, #1E40AF 0%, #2563EB 50%, #3B82F6 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
+            min-height: 100vh;
+            color: var(--leapa-light);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .header h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 100px;
+        }
+
+        .section-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--leapa-accent);
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--leapa-accent), transparent);
+        }
+
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .logo-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px;
+            padding: 48px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .logo-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(37, 99, 235, 0.3);
+            box-shadow: 0 20px 60px rgba(37, 99, 235, 0.15);
+        }
+
+        .logo-card:hover::before {
+            opacity: 1;
+        }
+
+        .logo-card.dark-bg {
+            background: var(--leapa-dark);
+        }
+
+        .logo-card.light-bg {
+            background: var(--leapa-light);
+        }
+
+        .logo-card.gradient-bg {
+            background: var(--gradient-primary);
+        }
+
+        .logo-label {
+            margin-top: 24px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .logo-card.light-bg .logo-label {
+            color: rgba(0,0,0,0.4);
+        }
+
+        .primary-logo {
+            width: 260px;
+            height: auto;
+        }
+
+        .icon-logo {
+            width: 100px;
+            height: 100px;
+        }
+
+        .wordmark-logo {
+            width: 180px;
+            height: auto;
+        }
+
+        /* Color Palette Section */
+        .colors-section {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .color-swatch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .color-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            border: 4px solid rgba(255,255,255,0.1);
+        }
+
+        .color-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .color-hex {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            font-family: monospace;
+        }
+
+        /* Guidelines */
+        .guidelines {
+            background: rgba(255,255,255,0.03);
+            border-radius: 24px;
+            padding: 48px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .guidelines h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 24px;
+            color: var(--leapa-accent);
+        }
+
+        .guidelines ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .guidelines li {
+            padding: 16px 20px;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 12px;
+            border-left: 3px solid var(--leapa-primary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+            .logo-card {
+                padding: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Leapa Brand Identity</h1>
+            <p>Concept B – Motion Trail Design with Blue Color Scheme</p>
+        </header>
+
+        <!-- Primary Logos -->
+        <section class="section">
+            <h2 class="section-title">Primary Logo</h2>
+            <div class="logo-grid">
+                <!-- Full Color on Dark -->
+                <div class="logo-card dark-bg">
+                    <svg class="primary-logo" viewBox="0 0 280 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="blueGrad1" x1="0" y1="18" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#1E40AF"/>
+                                <stop offset="0.5" stop-color="#2563EB"/>
+                                <stop offset="1" stop-color="#3B82F6"/>
+                            </linearGradient>
+                        </defs>
+                        <g>
+                            <!-- Stylized L forming a leap motion -->
+                            <path d="M12 58V24C12 18 16 14 22 14H32" stroke="url(#blueGrad1)" stroke-width="7" stroke-linecap="round"/>
+                            <path d="M12 58H52" stroke="url(#blueGrad1)" stroke-width="7" stroke-linecap="round"/>
+                            <!-- Motion trails -->
+                            <path d="M34 44L52 22L64 36" stroke="#FFB627" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="64" cy="36" r="5" fill="#FFB627"/>
+                            <!-- Motion echo dots -->
+                            <circle cx="40" cy="38" r="2.5" fill="#FFB627" opacity="0.4"/>
+                            <circle cx="46" cy="30" r="2" fill="#FFB627" opacity="0.3"/>
+                        </g>
+                        <text x="84" y="52" font-family="'Sora', sans-serif" font-size="38" font-weight="700" fill="white">
+                            <tspan fill="#2563EB">L</tspan><tspan>eapa</tspan>
+                        </text>
+                    </svg>
+                    <span class="logo-label">Full Color – Dark Background</span>
+                </div>
+
+                <!-- Full Color on Light -->
+                <div class="logo-card light-bg">
+                    <svg class="primary-logo" viewBox="0 0 280 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="blueGrad2" x1="0" y1="18" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#1E40AF"/>
+                                <stop offset="0.5" stop-color="#2563EB"/>
+                                <stop offset="1" stop-color="#3B82F6"/>
+                            </linearGradient>
+                        </defs>
+                        <g>
+                            <path d="M12 58V24C12 18 16 14 22 14H32" stroke="url(#blueGrad2)" stroke-width="7" stroke-linecap="round"/>
+                            <path d="M12 58H52" stroke="url(#blueGrad2)" stroke-width="7" stroke-linecap="round"/>
+                            <path d="M34 44L52 22L64 36" stroke="#FFB627" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="64" cy="36" r="5" fill="#FFB627"/>
+                            <circle cx="40" cy="38" r="2.5" fill="#FFB627" opacity="0.4"/>
+                            <circle cx="46" cy="30" r="2" fill="#FFB627" opacity="0.3"/>
+                        </g>
+                        <text x="84" y="52" font-family="'Sora', sans-serif" font-size="38" font-weight="700" fill="#0F172A">
+                            <tspan fill="#2563EB">L</tspan><tspan>eapa</tspan>
+                        </text>
+                    </svg>
+                    <span class="logo-label">Full Color – Light Background</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Icon Mark -->
+        <section class="section">
+            <h2 class="section-title">Icon Mark / App Icon</h2>
+            <div class="logo-grid">
+                <!-- Primary Icon -->
+                <div class="logo-card dark-bg">
+                    <svg class="icon-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="iconBlueGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#1E40AF"/>
+                                <stop offset="0.5" stop-color="#2563EB"/>
+                                <stop offset="1" stop-color="#3B82F6"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="100" height="100" rx="22" fill="url(#iconBlueGrad)"/>
+                        <!-- Stylized L -->
+                        <path d="M28 72V36C28 28 33 23 41 23H52" stroke="white" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M28 72H68" stroke="white" stroke-width="8" stroke-linecap="round"/>
+                        <!-- Motion trail -->
+                        <path d="M48 56L68 32L82 48" stroke="#FFB627" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="82" cy="48" r="6" fill="#FFB627"/>
+                    </svg>
+                    <span class="logo-label">App Icon – Primary</span>
+                </div>
+
+                <!-- Monochrome White -->
+                <div class="logo-card gradient-bg">
+                    <svg class="icon-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="3" y="3" width="94" height="94" rx="19" stroke="white" stroke-width="4" fill="none"/>
+                        <path d="M28 72V36C28 28 33 23 41 23H52" stroke="white" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M28 72H68" stroke="white" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M48 56L68 32L82 48" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+                        <circle cx="82" cy="48" r="6" fill="white" opacity="0.9"/>
+                    </svg>
+                    <span class="logo-label" style="color: white;">App Icon – Monochrome</span>
+                </div>
+
+                <!-- Circular Symbol -->
+                <div class="logo-card light-bg">
+                    <svg class="icon-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="circleBlueGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#1E40AF"/>
+                                <stop offset="1" stop-color="#3B82F6"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="50" cy="50" r="46" fill="url(#circleBlueGrad)"/>
+                        <path d="M30 68V40C30 34 34 30 40 30H48" stroke="white" stroke-width="6" stroke-linecap="round"/>
+                        <path d="M30 68H62" stroke="white" stroke-width="6" stroke-linecap="round"/>
+                        <path d="M46 54L60 36L70 46" stroke="#FFB627" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="70" cy="46" r="4" fill="#FFB627"/>
+                    </svg>
+                    <span class="logo-label">Symbol – Circular</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wordmark Only -->
+        <section class="section">
+            <h2 class="section-title">Wordmark</h2>
+            <div class="logo-grid">
+                <div class="logo-card dark-bg">
+                    <svg class="wordmark-logo" viewBox="0 0 180 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <text x="0" y="38" font-family="'Sora', sans-serif" font-size="42" font-weight="700" fill="white">
+                            <tspan fill="#2563EB">L</tspan><tspan>eapa</tspan>
+                        </text>
+                    </svg>
+                    <span class="logo-label">Wordmark – Dark</span>
+                </div>
+
+                <div class="logo-card light-bg">
+                    <svg class="wordmark-logo" viewBox="0 0 180 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <text x="0" y="38" font-family="'Sora', sans-serif" font-size="42" font-weight="700" fill="#0F172A">
+                            <tspan fill="#2563EB">L</tspan><tspan>eapa</tspan>
+                        </text>
+                    </svg>
+                    <span class="logo-label">Wordmark – Light</span>
+                </div>
+
+                <div class="logo-card gradient-bg">
+                    <svg class="wordmark-logo" viewBox="0 0 180 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <text x="0" y="38" font-family="'Sora', sans-serif" font-size="42" font-weight="700" fill="white">
+                            Leapa
+                        </text>
+                    </svg>
+                    <span class="logo-label" style="color: white;">Wordmark – Monochrome</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Color Palette -->
+        <section class="section">
+            <h2 class="section-title">Brand Colors</h2>
+            <div class="colors-section">
+                <div class="color-swatch">
+                    <div class="color-circle" style="background: linear-gradient(135deg, #1E40AF, #3B82F6);"></div>
+                    <span class="color-name">Leapa Blue</span>
+                    <span class="color-hex">#1E40AF → #3B82F6</span>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-circle" style="background: #2563EB;"></div>
+                    <span class="color-name">Primary Blue</span>
+                    <span class="color-hex">#2563EB</span>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-circle" style="background: #FFB627;"></div>
+                    <span class="color-name">Safari Gold</span>
+                    <span class="color-hex">#FFB627</span>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-circle" style="background: #0F172A;"></div>
+                    <span class="color-name">Deep Navy</span>
+                    <span class="color-hex">#0F172A</span>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-circle" style="background: #F8FAFC; border-color: rgba(0,0,0,0.1);"></div>
+                    <span class="color-name">Cloud White</span>
+                    <span class="color-hex">#F8FAFC</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Rationale -->
+        <section class="section">
+            <h2 class="section-title">Design Rationale</h2>
+            <div class="guidelines">
+                <h3>Symbol Meaning</h3>
+                <ul>
+                    <li><strong>Stylized "L":</strong> The bold letter L forms the foundation – representing both "Leap" and "Lipa" while creating a strong brand anchor</li>
+                    <li><strong>Motion Trail:</strong> The golden arrow and trailing dots represent the "leap" forward – dynamic movement, progress, and instant transactions</li>
+                    <li><strong>Blue Gradient:</strong> Conveys trust, security, and professionalism – essential for a financial application handling crypto and fiat</li>
+                    <li><strong>Gold Accent:</strong> References Kenya's warmth and optimism, creates visual energy, and draws attention to the motion/leap element</li>
+                    <li><strong>Rounded Corners:</strong> Softens the technical nature of crypto, making the brand approachable for everyday Kenyan M-Pesa users</li>
+                    <li><strong>Highlighted "L":</strong> The blue "L" in the wordmark maintains brand recognition and connects to the icon symbol</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

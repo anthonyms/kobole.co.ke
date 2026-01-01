@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Bell, 
   Wallet, 
@@ -15,6 +16,7 @@ import {
 } from 'lucide-react';
 import { Transaction, MarketToken } from '../types';
 import { getMarketInsights } from '../services/ai';
+import { fetchCryptoPrices, CryptoPrice } from '../services/crypto';
 
 const RecentActivityItem: React.FC<{ tx: Transaction }> = ({ tx }) => {
   const getIcon = () => {
@@ -38,7 +40,12 @@ const RecentActivityItem: React.FC<{ tx: Transaction }> = ({ tx }) => {
   };
 
   return (
-    <div className="flex items-center justify-between py-4 border-b border-gray-100 last:border-0">
+    <motion.div
+      className="flex items-center justify-between py-4 border-b border-gray-100 last:border-0"
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      whileHover={{ x: 5 }}
+    >
       <div className="flex items-center gap-3">
         <div className={`w-10 h-10 rounded-full ${getBgColor()} flex items-center justify-center`}>
           {getIcon()}
@@ -54,12 +61,16 @@ const RecentActivityItem: React.FC<{ tx: Transaction }> = ({ tx }) => {
         </p>
         <p className="text-xs text-gray-400">{tx.amountFiat}</p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
 const MarketCard: React.FC<{ token: MarketToken }> = ({ token }) => (
-  <div className="min-w-[140px] p-3 rounded-2xl bg-white border border-gray-100 shadow-sm mr-3">
+  <motion.div
+    className="min-w-[140px] p-3 rounded-2xl bg-white border border-gray-100 shadow-sm mr-3"
+    whileHover={{ y: -5, boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)' }}
+    whileTap={{ scale: 0.98 }}
+  >
     <div className="flex items-center gap-2 mb-2">
       <div className={`w-6 h-6 rounded-full flex items-center justify-center ${token.symbol === 'USDT' ? 'bg-green-100' : token.symbol === 'BTC' ? 'bg-orange-100' : 'bg-blue-100'}`}>
         {token.symbol === 'USDT' && <span className="text-[10px] font-bold text-green-600">$</span>}
@@ -76,12 +87,17 @@ const MarketCard: React.FC<{ token: MarketToken }> = ({ token }) => (
       {token.change >= 0 ? <TrendingUp className="w-3 h-3 mr-1" /> : <TrendingDown className="w-3 h-3 mr-1" />}
       {token.change > 0 ? '+' : ''}{token.change}%
     </div>
-  </div>
+  </motion.div>
 );
 
 export const AppMockup: React.FC = () => {
   const [insight, setInsight] = useState<string>("");
   const [loadingInsight, setLoadingInsight] = useState(false);
+  const [marketData, setMarketData] = useState<MarketToken[]>([
+    { symbol: 'USDT', name: 'Tether', price: 133, change: 0.15 },
+    { symbol: 'BTC', name: 'Bitcoin', price: 8543000, change: 2.4 },
+    { symbol: 'ETH', name: 'Ethereum', price: 340000, change: -1.2 },
+  ]);
 
   // Mock Data
   const transactions: Transaction[] = [
@@ -91,13 +107,28 @@ export const AppMockup: React.FC = () => {
     { id: '4', type: 'send', title: 'Sent to Achieng Wanjiku', subtitle: '(0712...)', date: '2024-12-01 08:45', amountCrypto: '-35 USDT', amountFiat: '4,620 KES', currency: 'USDT', isPositive: false, icon: 'send' },
   ];
 
-  const marketData: MarketToken[] = [
-    { symbol: 'USDT', name: 'Tether', price: 133, change: 0.15 },
-    { symbol: 'BTC', name: 'Bitcoin', price: 8543000, change: 2.4 },
-    { symbol: 'ETH', name: 'Ethereum', price: 340000, change: -1.2 },
-  ];
+  // Fetch crypto prices
+  const updatePrices = async () => {
+    try {
+      const prices = await fetchCryptoPrices();
+      setMarketData(prices.map(p => ({
+        symbol: p.symbol,
+        name: p.name,
+        price: p.priceKES,
+        change: p.change24h
+      })));
+    } catch (error) {
+      console.error('Failed to update prices:', error);
+    }
+  };
 
   useEffect(() => {
+    // Fetch prices on mount
+    updatePrices();
+
+    // Refresh prices every hour (3600000 ms)
+    const priceInterval = setInterval(updatePrices, 3600000);
+
     // Generate insight on mount
     const fetchInsight = async () => {
       setLoadingInsight(true);
@@ -106,11 +137,16 @@ export const AppMockup: React.FC = () => {
       setLoadingInsight(false);
     };
     fetchInsight();
+
+    return () => {
+      clearInterval(priceInterval);
+    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div className="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-900 border-[14px] rounded-[2.5rem] h-[750px] w-[360px] shadow-xl overflow-hidden">
+    <div className="relative w-full flex justify-center items-center scale-[0.6] sm:scale-75 md:scale-90 lg:scale-100 origin-top">
+      <div className="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-900 border-[14px] rounded-[2.5rem] h-[750px] w-[360px] shadow-xl overflow-hidden">
       <div className="w-[148px] h-[18px] bg-gray-800 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute z-10"></div>
       <div className="h-[32px] w-[3px] bg-gray-800 absolute -start-[17px] top-[72px] rounded-s-lg"></div>
       <div className="h-[46px] w-[3px] bg-gray-800 absolute -start-[17px] top-[124px] rounded-s-lg"></div>
@@ -156,26 +192,76 @@ export const AppMockup: React.FC = () => {
               <p className="text-blue-200 text-sm mt-1">≈ 820.55 USDT</p>
 
               <div className="flex gap-4 mt-8">
-                <button className="flex-1 bg-white/20 backdrop-blur-sm hover:bg-white/30 transition py-2.5 rounded-xl flex items-center justify-center gap-2 text-sm font-semibold">
+                <motion.button
+                  className="flex-1 bg-white/20 backdrop-blur-sm transition py-2.5 rounded-xl flex items-center justify-center gap-2 text-sm font-semibold"
+                  whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   <ArrowDownLeft className="w-4 h-4" /> Receive
-                </button>
-                <button className="flex-1 bg-white/20 backdrop-blur-sm hover:bg-white/30 transition py-2.5 rounded-xl flex items-center justify-center gap-2 text-sm font-semibold">
+                </motion.button>
+                <motion.button
+                  className="flex-1 bg-white/20 backdrop-blur-sm transition py-2.5 rounded-xl flex items-center justify-center gap-2 text-sm font-semibold"
+                  whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   <Send className="w-4 h-4" /> Send
-                </button>
+                </motion.button>
               </div>
             </div>
           </div>
 
           {/* AI Insight Pill */}
           <div className="px-5 mt-6">
-            <div className="bg-white rounded-xl p-3 shadow-sm border border-blue-50 flex gap-3 items-center">
+            <motion.div
+              className="bg-white rounded-xl p-3 shadow-sm border border-blue-50 flex gap-3 items-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2 }}
+            >
                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center text-white shrink-0">
-                 <Sparkles className="w-4 h-4" />
+                 <motion.div
+                   animate={loadingInsight ? { rotate: 360 } : { rotate: 0 }}
+                   transition={{ duration: 2, repeat: loadingInsight ? Infinity : 0, ease: 'linear' }}
+                 >
+                   <Sparkles className="w-4 h-4" />
+                 </motion.div>
                </div>
-               <p className="text-xs text-gray-600 leading-tight">
-                 {loadingInsight ? "Analyzing market trends..." : insight}
-               </p>
-            </div>
+               <AnimatePresence mode="wait">
+                 {loadingInsight ? (
+                   <motion.div
+                     key="loading"
+                     initial={{ opacity: 0 }}
+                     animate={{ opacity: 1 }}
+                     exit={{ opacity: 0 }}
+                     className="flex items-center gap-1"
+                   >
+                     <motion.span
+                       className="text-xs text-gray-600"
+                       animate={{ opacity: [0.5, 1, 0.5] }}
+                       transition={{ duration: 1.5, repeat: Infinity }}
+                     >
+                       Analyzing market trends
+                     </motion.span>
+                     <motion.span
+                       className="text-xs text-gray-600"
+                       animate={{ opacity: [0, 1, 0] }}
+                       transition={{ duration: 1.5, repeat: Infinity, times: [0, 0.5, 1] }}
+                     >
+                       ...
+                     </motion.span>
+                   </motion.div>
+                 ) : (
+                   <motion.p
+                     key="insight"
+                     initial={{ opacity: 0, y: 10 }}
+                     animate={{ opacity: 1, y: 0 }}
+                     className="text-xs text-gray-600 leading-tight"
+                   >
+                     {insight}
+                   </motion.p>
+                 )}
+               </AnimatePresence>
+            </motion.div>
           </div>
 
           {/* Market Trends */}
@@ -225,6 +311,7 @@ export const AppMockup: React.FC = () => {
           </button>
         </div>
 
+      </div>
       </div>
     </div>
   );

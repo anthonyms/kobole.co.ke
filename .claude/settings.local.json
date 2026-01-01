@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install framer-motion)",
+      "WebFetch(domain:www.safaricom.co.ke)",
+      "Bash(npm run build:*)"
+    ]
+  }
+}
