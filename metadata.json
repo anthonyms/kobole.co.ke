@@ -1,0 +1,5 @@
+{
+  "name": "Leapa",
+  "description": "A modern crypto-fiat gateway for Kenya, integrating M-Pesa with instant global payments.",
+  "requestFramePermissions": []
+}
