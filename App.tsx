@@ -17,6 +17,14 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, bgColor, iconColor, tit
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
+  // Define color-matched shadows for each card
+  const getHoverShadow = () => {
+    if (index === 0) return '0 20px 60px -15px rgba(16, 185, 129, 0.3)'; // emerald glow for M-Pesa
+    if (index === 1) return '0 20px 60px -15px rgba(59, 130, 246, 0.3)'; // blue glow for Regulated
+    if (index === 2) return '0 20px 60px -15px rgba(168, 85, 247, 0.3)'; // purple glow for Instant
+    return '0 20px 40px -12px rgba(0, 0, 0, 0.1)';
+  };
+
   return (
     <motion.div
       ref={ref}
@@ -27,8 +35,8 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, bgColor, iconColor, tit
         delay: index * 0.15,
         ease: 'easeOut'
       }}
-      whileHover={{ y: -8 }}
-      className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 transition duration-300"
+      whileHover={{ y: -8, boxShadow: getHoverShadow() }}
+      className="bg-white/80 backdrop-blur-xl p-10 rounded-3xl shadow-sm border border-white/20 transition-all duration-300"
     >
       <motion.div
         className={`w-14 h-14 ${bgColor} rounded-2xl flex items-center justify-center ${iconColor} mb-6`}
@@ -80,14 +88,14 @@ const App: React.FC = () => {
 
             {/* Desktop Links */}
             <div className="hidden md:flex space-x-8 items-center">
-              <a href="#features" className="text-sm font-medium text-gray-500 hover:text-gray-900 transition">Products</a>
-              <a href="#about" className="text-sm font-medium text-gray-500 hover:text-gray-900 transition">Company</a>
-              <a href="#contact" className="text-sm font-medium text-gray-500 hover:text-gray-900 transition">Contact</a>
+              <a href="#features" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition">Products</a>
+              <a href="#about" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition">Company</a>
+              <a href="#contact" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition">Contact</a>
             </div>
 
             {/* Mobile Menu Button */}
             <div className="md:hidden">
-              <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-600">
+              <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-slate-600">
                 {isMobileMenuOpen ? <X /> : <Menu />}
               </button>
             </div>
@@ -107,7 +115,7 @@ const App: React.FC = () => {
               <div className="px-4 py-4">
                 <motion.a
                   href="#features"
-                  className="block py-3 text-base font-medium text-gray-600 hover:text-gray-900 transition"
+                  className="block py-3 text-base font-medium text-slate-600 hover:text-slate-900 transition"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 }}
@@ -117,7 +125,7 @@ const App: React.FC = () => {
                 </motion.a>
                 <motion.a
                   href="#about"
-                  className="block py-3 text-base font-medium text-gray-600 hover:text-gray-900 transition"
+                  className="block py-3 text-base font-medium text-slate-600 hover:text-slate-900 transition"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.17 }}
@@ -127,7 +135,7 @@ const App: React.FC = () => {
                 </motion.a>
                 <motion.a
                   href="#contact"
-                  className="block py-3 text-base font-medium text-gray-600 hover:text-gray-900 transition"
+                  className="block py-3 text-base font-medium text-slate-600 hover:text-slate-900 transition"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.24 }}
@@ -142,9 +150,9 @@ const App: React.FC = () => {
       </motion.nav>
 
       {/* Hero Section */}
-      <section className="pt-24 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
+      <section className="pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
             
             {/* Left Content */}
             <motion.div
@@ -154,7 +162,7 @@ const App: React.FC = () => {
               transition={{ duration: 0.6, ease: 'easeOut' }}
             >
               <motion.div
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-sm font-semibold mb-8"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50/80 backdrop-blur-md border border-blue-200/50 text-blue-700 text-sm font-semibold mb-8"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2, duration: 0.4 }}
@@ -187,8 +195,8 @@ const App: React.FC = () => {
                 transition={{ delay: 0.7, duration: 0.6 }}
               >
                 <motion.button
-                  className="bg-gray-100 text-gray-900 px-8 py-4 rounded-full text-lg font-semibold transition flex items-center justify-center gap-2"
-                  whileHover={{ scale: 1.05, backgroundColor: '#e5e7eb' }}
+                  className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-full text-lg font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-blue-500/30"
+                  whileHover={{ scale: 1.05, boxShadow: '0 20px 40px -12px rgba(59, 130, 246, 0.5)' }}
                   whileTap={{ scale: 0.95 }}
                 >
                    View Demo
@@ -196,18 +204,18 @@ const App: React.FC = () => {
               </motion.div>
 
               <motion.div
-                className="mt-12 flex items-center gap-6 text-gray-400"
+                className="mt-12 flex items-center gap-6"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.9, duration: 0.6 }}
               >
                 <div className="flex items-center gap-2">
-                   <CheckCircle2 className="w-5 h-5 text-green-500" />
-                   <span className="text-sm font-medium text-gray-600">Regulated</span>
+                   <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                   <span className="text-sm font-medium text-slate-600">Regulated</span>
                 </div>
                  <div className="flex items-center gap-2">
-                   <CheckCircle2 className="w-5 h-5 text-green-500" />
-                   <span className="text-sm font-medium text-gray-600">Secure M-Pesa Integration</span>
+                   <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                   <span className="text-sm font-medium text-slate-600">Secure M-Pesa Integration</span>
                 </div>
               </motion.div>
             </motion.div>
@@ -219,10 +227,22 @@ const App: React.FC = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4, duration: 0.8, ease: 'easeOut' }}
             >
-              {/* Background abstract shapes */}
+              {/* Background abstract shapes - Enhanced multi-layer gradient mesh */}
               <motion.div
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-blue-100 to-indigo-100 rounded-full blur-3xl -z-10"
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-blue-100 via-indigo-100 to-purple-100 rounded-full blur-3xl -z-10"
                 style={{ y: bgY, opacity: bgOpacity }}
+              />
+              <motion.div
+                className="absolute top-1/3 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-br from-cyan-100 to-blue-200 rounded-full blur-3xl -z-10"
+                style={{ y: bgY, opacity: bgOpacity }}
+                animate={{ scale: [1, 1.1, 1], rotate: [0, 90, 0] }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              />
+              <motion.div
+                className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] bg-gradient-to-tl from-purple-100 to-pink-100 rounded-full blur-3xl -z-10"
+                style={{ y: bgY, opacity: bgOpacity }}
+                animate={{ scale: [1, 1.15, 1], rotate: [0, -90, 0] }}
+                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
               />
               <AppMockup />
             </motion.div>
@@ -232,7 +252,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Feature Grid */}
-      <section id="features" className="py-24 bg-gray-50">
+      <section id="features" className="py-32 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-20">
              <h2 className="text-blue-600 font-bold tracking-wide uppercase text-sm mb-3">Features</h2>
@@ -240,10 +260,10 @@ const App: React.FC = () => {
              <p className="text-slate-600 text-lg leading-relaxed">We believe in complete transparency. Enjoy market-leading rates with zero surprise charges when you buy, sell, or send.</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-10">
              <FeatureCard
                icon={<MPesaLogo className="w-12 h-12" />}
-               bgColor="bg-white"
+               bgColor="bg-gradient-to-br from-emerald-50 to-teal-100"
                iconColor=""
                title="M-Pesa Integration"
                description="Sell crypto and receive cash instantly to your phone."
@@ -251,7 +271,7 @@ const App: React.FC = () => {
              />
              <FeatureCard
                icon={<CMALogo className="w-7 h-7" />}
-               bgColor="bg-blue-100"
+               bgColor="bg-gradient-to-br from-blue-100 to-indigo-100"
                iconColor="text-blue-600"
                title="Regulated"
                description="Leapa is regulated by the CMA, ensuring your funds are safe and compliant."
@@ -259,7 +279,7 @@ const App: React.FC = () => {
              />
              <FeatureCard
                icon={<Zap className="w-7 h-7" />}
-               bgColor="bg-purple-100"
+               bgColor="bg-gradient-to-br from-purple-100 to-pink-100"
                iconColor="text-purple-600"
                title="Instant"
                description="Instant crypto to paying bills."
@@ -282,15 +302,15 @@ const App: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <p className="text-xl text-gray-700 font-medium">
-              Find us in the <span className="text-green-600 font-bold">M-Pesa Super App</span>
+            <p className="text-xl text-slate-700 font-medium">
+              Find us in the <span className="text-emerald-600 font-bold">M-Pesa Super App</span>
             </p>
           </motion.div>
-          <div className="mt-16 flex justify-between items-center text-sm text-gray-500 border-t border-gray-100 pt-8">
+          <div className="mt-16 flex justify-between items-center text-sm text-slate-500 border-t border-slate-100 pt-8">
              <p>© 2026 Leapa (Satoshi Kenya). All rights reserved.</p>
              <div className="flex gap-6">
-                <a href="#" className="hover:text-gray-900">Privacy</a>
-                <a href="#" className="hover:text-gray-900">Terms</a>
+                <a href="#" className="hover:text-slate-900">Privacy</a>
+                <a href="#" className="hover:text-slate-900">Terms</a>
              </div>
           </div>
         </div>
