@@ -83,7 +83,7 @@ const App: React.FC = () => {
           <div className="flex justify-between h-20 items-center">
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center cursor-pointer">
-              <img src="/logos/leapa-logo.svg" alt="Leapa" className="h-10" />
+              <img src="/logos/leapa-logo.png" alt="Leapa" className="h-10" />
             </div>
 
             {/* Desktop Links */}
