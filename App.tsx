@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion';
 import { AppMockup } from './components/AppMockup';
-import { MPesaLogo, CMALogo } from './components/Logos';
+import { MPesaLogo, CMALogo, TelegramLogo } from './components/Logos';
 import { ArrowRight, CheckCircle2, ChevronRight, Globe, Lock, Smartphone, Menu, X, Zap, Shield } from 'lucide-react';
 
 interface FeatureCardProps {
@@ -185,7 +185,11 @@ const App: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.6 }}
               >
-                The sleek bridge between M-Pesa and the global crypto economy. Send Money, Buy Goods, Pay Bills all with crypto. Buy and Sell crypto instantly with M-pesa.
+                The sleek bridge between M-Pesa and the global crypto economy. 
+              </br>
+                end Money, Buy Goods, Pay Bills all with crypto. 
+
+                Buy and Sell crypto instantly with M-pesa.
               </motion.p>
 
               <motion.div
@@ -302,9 +306,15 @@ const App: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <p className="text-xl text-slate-700 font-medium">
-              Find us in the <span className="text-emerald-600 font-bold">M-Pesa Super App</span>
-            </p>
+            <a 
+              href="https://t.me/leapabot" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-xl text-slate-700 font-medium hover:text-[#229ED9] transition-colors group"
+            >
+              <TelegramLogo className="w-7 h-7 text-[#229ED9]" />
+              find us on <span className="text-[#229ED9] font-bold">telegram</span>
+            </a>
           </motion.div>
           <div className="mt-16 flex justify-between items-center text-sm text-slate-500 border-t border-slate-100 pt-8">
              <p>© 2026 Leapa (Satoshi Kenya). All rights reserved.</p>
