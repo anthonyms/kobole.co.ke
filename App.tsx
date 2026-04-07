@@ -180,17 +180,18 @@ const App: React.FC = () => {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">future of money.</span>
               </motion.h1>
               <motion.p
-                className="text-lg lg:text-xl text-slate-600 mb-8 leading-loose max-w-lg"
+                className="text-xl text-slate-600 mb-10 max-w-lg leading-relaxed"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.6 }}
               >
                 The sleek bridge between M-Pesa and the global crypto economy. 
-              </br>
-                end Money, Buy Goods, Pay Bills all with crypto. 
+              <br />
+                Send Money, Buy Goods, Pay Bills all with crypto. 
 
                 Buy and Sell crypto instantly with M-pesa.
               </motion.p>
+
 
               <motion.div
                 className="flex flex-col sm:flex-row gap-4"
