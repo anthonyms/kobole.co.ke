@@ -1,5 +1,9 @@
 import React from 'react';
 
+export const LeapaLogo: React.FC<{ className?: string }> = ({ className = "h-10 w-auto" }) => (
+  <img src="/logos/leapa-logo.png" alt="Leapa" className={className} />
+);
+
 export const MPesaLogo: React.FC<{ className?: string }> = ({ className = "w-7 h-7" }) => (
   <img src="/logos/mpesa.svg" alt="M-Pesa" className={className} />
 );

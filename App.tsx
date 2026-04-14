@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion';
 import { AppMockup } from './components/AppMockup';
-import { MPesaLogo, CMALogo, TelegramLogo } from './components/Logos';
+import { LeapaLogo, MPesaLogo, CMALogo, TelegramLogo } from './components/Logos';
 import { ArrowRight, CheckCircle2, ChevronRight, Globe, Lock, Smartphone, Menu, X, Zap, Shield } from 'lucide-react';
 
 interface FeatureCardProps {
@@ -82,8 +82,8 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
             {/* Logo */}
-            <div className="flex-shrink-0 flex items-center cursor-pointer">
-              <img src="/logos/leapa-logo.png" alt="Leapa" className="h-10" />
+            <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+              <LeapaLogo className="h-10 w-auto" />
             </div>
 
             {/* Desktop Links */}
@@ -318,9 +318,8 @@ const App: React.FC = () => {
             </a>
           </motion.div>
           <div className="mt-16 flex justify-between items-center text-sm text-slate-500 border-t border-slate-100 pt-8">
-             <p>© 2026 Leapa (Satoshi Kenya). All rights reserved.</p>
-             <div className="flex gap-6">
-                <a href="#" className="hover:text-slate-900">Privacy</a>
+             <p>© 2026 Leapa (SatoshiPay). All rights reserved.</p>
+             <div className="flex gap-6">                <a href="#" className="hover:text-slate-900">Privacy</a>
                 <a href="#" className="hover:text-slate-900">Terms</a>
              </div>
           </div>
